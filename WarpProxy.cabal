@@ -1,0 +1,41 @@
+Name:                WarpProxy
+Version:             0.1
+Synopsis:            A simple reverse proxy build on Warp
+Homepage:            http://www.pharmash.com
+License:             BSD3
+License-file:        LICENSE
+Author:              Orion Jankowski
+Maintainer:          orion10@gmail.com
+Category:            Network
+Build-type:          Simple
+Cabal-version:       >=1.2
+
+
+Executable gofio
+  Main-is: Main.hs
+  hs-source-dirs: src
+  
+  Build-depends:
+      base == 4.*,
+      blaze-builder <= 0.3.1.0,
+      bytestring <= 0.9.2.1,
+      conduit <= 0.4.1.1,
+      http-conduit == 1.4.*,
+      http-types <= 0.6.10,
+      old-locale <= 1.0.0.4,
+      resourcet <= 0.3.2.1,
+      time <= 1.4,
+      transformers <= 0.3.0.0,
+      wai == 1.2.*,
+      warp == 1.2.*
+
+  ghc-options: -O2 -Wall -threaded -fno-warn-missing-signatures -fwarn-tabs
+
+
+  
+  -- Modules not exported by this package.
+  -- Other-modules:       
+  
+  -- Extra tools (e.g. alex, hsc2hs, ...) needed to build the source.
+  -- Build-tools:         
+  
