@@ -7,7 +7,7 @@ import Network.Wai as W
 import Network.Wai.Handler.Warp
 import Network.HTTP.Conduit as H
 import qualified Data.Conduit as C
-import Blaze.ByteString.Builder.ByteString
+import Blaze.ByteString.Builder.ByteString (fromByteString)
 import Blaze.ByteString.Builder (toByteString)
 import Control.Monad.IO.Class
 import Control.Exception.Base (catch)
