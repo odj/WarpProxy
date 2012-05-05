@@ -20,6 +20,7 @@ import Prelude hiding (catch)
 import System.Environment
 import System.Exit
 import System.Locale
+import System.IO
 
 
 pharmash = "http://www.pharmash.com" :: ByteString
@@ -29,7 +30,7 @@ sigHandler mv = do putMVar mv True
 
 getParam [] _   = Nothing
 getParam (_:[]) _ = Nothing
-getParam (a:args) flag 
+getParam (a:args) flag
     | a == flag = Just $ head args
     | otherwise = getParam args flag
 
@@ -40,7 +41,7 @@ orElse m b = case m of
 
 orDie m s = case m of
     Just a -> return a
-    Nothing -> do  
+    Nothing -> do
         putStrLn s
         exitFailure
 
@@ -55,8 +56,8 @@ proxApp req = do
                                 , H.requestHeaders = W.requestHeaders req
                                 , H.port        = 8080
                                 }
-    (return =<< liftIO) $ catch 
-        (H.withManager $ \manager -> do 
+    (return =<< liftIO) $ catch
+        (H.withManager $ \manager -> do
             Response status _ headers src <- http pRequest manager
             body <- src C.$$ responseSink
             return $ ResponseBuilder status headers body)
@@ -89,7 +90,8 @@ logReq req = do
                ++ " -- " ++ (show $ remoteHost req)
                {-++ " -- " ++ (show $ W.queryString req)-}
                {-++ " -- " ++ (show $ W.requestHeaders req)-}
-    
+    hFlush stdout
+
 main = do
     {-args <- getArgs-}
     {-logFile <- orDie (getParam args "-l") "Missing log output file"-}
